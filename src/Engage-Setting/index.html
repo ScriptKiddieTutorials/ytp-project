@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <div class="all_headers">
+      <a href="../Engage-Chat/index.html">
+        <img width="60" height="60" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Icon.png" />
+      </a>
+      <div class='text_index'>
+        <a href="../Engage-About/index.html" id='functext'>關於我們</a>
+      </div>
+      <div class="topright-icons">
+        <button id="notification">
+          <img width="33" height="33" id="topright-pics"
+            src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/bell.png" />
+        </button>
+        <img width="33" height="33" id="topright-pics"
+          src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Fire.png">
+        <div id="strike-num"> 5 </div>
+        </img>
+      </div>
+    </div>
+
+    <div>
+      <img id='linehori' src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/linehori.png" />
+    </div>
+
+    <div class="main-elements">
+      <div class="menu">
+        <ul class="upperlist">
+          <li class="listwrap">
+            <a class="listmenu" href="../Engage-Chat/index.html">
+              <img class="menu-icons" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Home.png" />
+              <span class="menu-texts">主頁</span>
+            </a>
+          </li>
+          <li class="listwrap">
+            <a class="listmenu" href="../Engage-Vocab/index.html">
+              <img class="menu-icons" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Vocabularies.png" />
+              <span class="menu-texts">單字</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="lowerlist">
+          <li class="listwrap">
+            <a class="listmenu" href="../Engage-Setting/index.html">
+              <img class="menu-icons" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Settings.png" />
+              <span class="menu-texts">設定</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <img id='line-ver' src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/linehori.png">
+      </div>
+      <div id = "chat-page">
+        <div id = "setting-area">
+          <div class = "user-info">
+            <label for="file-input">
+              <img id = "setting-icon"/>
+            </label>
+            <input id="file-input" type="file" onchange = "changeIcon(event)"/>
+            <div id = "change-foto-text">變更頭像</div>
+          </div>
+          <div id = "setting-welcome-text">
+            歡迎使用Engage~
+          </div>
+          <label for="quantity">font-size:</label>
+          <input type="number" id="font-size" min="50" max="200" onchange = "setFontSize()"/>
+        </div>
+      </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="./main.js"></script>
+    <!-- <script src="./suggestions.js"></script> -->
+  </body>
+</html>

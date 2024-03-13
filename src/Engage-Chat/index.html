@@ -1,0 +1,144 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body onload="initAll()">
+  <div class="all_headers">
+    <a href="../Engage-Chat/index.html">
+      <img width="60" height="60" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Icon.png" />
+    </a>
+    <div class='text_index'>
+      <a href="../Engage-About/index.html" id='functext'>關於我們</a>
+    </div>
+    <div class="topright-icons">
+      <img width="33" height="33" id="topright-pics"
+        src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Fire.png">
+      <div id="strike-num"> 5 </div>
+      </img>
+    </div>
+  </div>
+
+  <div>
+    <img id='linehori' src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/linehori.png" />
+  </div>
+
+  <div class="main-elements">
+    <div class="menu">
+      <ul class="upperlist">
+        <li class="listwrap">
+          <a class="listmenu" href="../Engage-Chat/index.html">
+            <img class="menu-icons" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Home.png" />
+            <span class="menu-texts">主頁</span>
+          </a>
+        </li>
+        <li class="listwrap">
+          <a class="listmenu" href="../Engage-Vocab/index.html">
+            <img class="menu-icons" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Vocabularies.png" />
+            <span class="menu-texts">單字</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="lowerlist">
+        <li class="listwrap">
+          <a class="listmenu" href="../Engage-Setting/">
+            <img class="menu-icons" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Settings.png" />
+            <span class="menu-texts">設定</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <img id='line-ver' src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/linehori.png">
+    <div id="chat-page">
+      <div id="upper-toolbar">
+        <!-- <div id="model-options">
+          <select id="model-list">
+            <option value="1">blenderbot-400M-distill</option>
+          </select>
+        </div> -->
+        <div id="english-level-options">
+          <select id="level-list">
+            <option value="0">選擇你的英文程度...</option>
+            <option value="1">Beginner</option>
+            <option value="2">Intermediate</option>
+            <option value="3">Advanced</option>
+          </select>
+        </div>
+        <button id="reset-button">重置對話</button>
+      </div>
+      <div id="chat-history"></div>
+      <div id="suggestions">
+
+      </div>
+      <div id="input-div">
+        <div id="input-hint">Robot is typing...</div>
+        <div class="info" id="info-box1">
+          <div id="info-box1-text">
+          </div>
+          <button id="info-x-btn">x</button>
+          <button id="info-nxt-btn">OK！</button>
+        </div>
+        <textarea id="input" type="text" placeholder="輸入你的訊息" autocomplete="off" autofocus="true"></textarea>
+        <div class="send-area">
+          <button id="send-button" autofocus="true">
+            <img id="send-icon" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Sent-button.png" />
+          </button>
+        </div>
+        <div class="microphone-area">
+          <button id="microphone" autofocus="true" onclick="StT()">
+            <img id=microphone-icon src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Microphone.png" />
+          </button>
+        </div>
+      </div>
+      <div id="bottom-toolbar">
+        <button id="suggestions-area">
+          <img id="suggestions-icon" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/hintpng.png" />
+          <div id="suggestions-text">
+            建議
+          </div>
+        </button>
+        <button id="fill-area">
+          <img id="fill-icon" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/hintpng.png" />
+          <div id="fill-text">
+            填空
+          </div>
+        </button>
+        <button id="trans-area">
+          <img id="trans-icon" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/hintpng.png" />
+          <div id="trans-text">
+            英譯
+          </div>
+          <!-- </button>
+          <button id="grammar-area">
+            <img id="grammar-icon" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/hintpng.png" />
+            <div id="grammar-text">
+              檢查文法
+            </div>
+          </button> -->
+      </div>
+    </div>
+    <div id="definition">
+      <button id="leave-button" autofocus="true">
+        <img id="definition-leave" src="https://raw.githubusercontent.com/AllenMuenLee/Engage/main/Leave.png" />
+      </button>
+      <div id="definition-vocab"></div>
+      <div id="definition-content">
+        <div id="text-area">
+          <div id="definition-itself">
+            Definitions
+          </div>
+          <div id="definition-text">
+          </div>
+        </div>
+        <div id="img-area">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="./main.js"></script>
+  <!-- <script src="./suggestions.js"></script> -->
+</body>
+
+</html>
