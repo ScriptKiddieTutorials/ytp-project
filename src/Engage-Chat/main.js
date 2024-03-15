@@ -1,3 +1,4 @@
+// Engage
 // Made by YTP Team 「」
 
 
@@ -27,7 +28,6 @@ const hint = document.getElementById("input-hint");
 const messagesContainer = document.getElementById("chat-history");
 // const modelList = document.getElementById("model-list");
 const levelList = document.getElementById("level-list");
-const strikeNum = document.getElementById("strike-num");
 const imgArea = document.getElementById("img-area");
 const sendBtn = document.getElementById("send-button");
 const leaveBtn = document.getElementById("leave-button");
@@ -54,7 +54,7 @@ var output_hist = localStorage.getItem("output_hist");
 var iconsrc = localStorage.getItem("image");
 var hist_limit = 10;
 var fontSize = localStorage.getItem('fontSize');
-var strike_num = document.getElementById("strike-num");
+var streak_num = document.getElementById("streak-num");
 
 const insFocusElemId = [
   "input", "suggestions-area", "fill-area", "trans-area",
@@ -66,6 +66,8 @@ const instructions = [
   `當你不確定句中的詞彙時，可以選取它並點【填空】喔~`,
   `最後，如果你有某個詞彙只會用中文打的話，可以選取它並按【英譯】~\n\nGL&HF!`
 ];
+
+const levelModes = ["beginner", "intermediate", "advanced"];
 
 // Global Config
 var globalConfig = {
@@ -105,12 +107,13 @@ class Model0 { // Dummy model for testing
   }
 }
 
-class Model1 { // Blenderbot model
+class Model1 { // Fine-tuned blenderbot model
   constructor() {
-    this.API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
+    this.API_URL = "https://api-inference.huggingface.co/models/";
+    this.LIMIT = 10;
+    this.modelName = "facebook/blenderbot-400M-distill";
     this.in_hist = input_hist;
     this.out_hist = output_hist;
-    this.LIMIT = 10;
   }
 
   clear() {
@@ -119,7 +122,7 @@ class Model1 { // Blenderbot model
   }
 
   get(msg) {
-    return fetch(this.API_URL, {
+    return fetch(this.API_URL + this.modelName, {
       "headers": {
         "Authorization": "Bearer " + CHAT_API_TOKEN,
         "content-type": "application/json",
@@ -251,7 +254,7 @@ function restoreHistory() {
     vocabs = {};
   }
 
-  strike_num.innerHTML = lastlogin[1];
+  streak_num.innerHTML = lastlogin[1];
 
   if (iconsrc == null) {
     iconsrc = 'https://raw.githubusercontent.com/AllenMuenLee/Engage/main/User-avatar.png';
@@ -325,11 +328,14 @@ function initSpeech() {
 
 function updateEnglishLevel(evt) {
   let target = evt.currentTarget;
-  setEnglishLevel(target.options[target.selectedIndex].value);
+  let levelIdx = target.selectedIndex;
+  let level = target.options[levelIdx].value
+  setEnglishLevel(level);
 }
 
 function setEnglishLevel(id) {
   globalConfig.mode = id > 0 ? id - 1 : 0;
+  models[1].modelName = "scriptkidd196883/ytp-engage-model-" + levelModes[globalConfig.mode];
 }
 
 function clearHistory() {
@@ -604,36 +610,11 @@ async function translate(text, reverse = false) {
   });
 }
 
-async function getDefs0(text, lim = 3) {
-  const ret = [];
-
-  if (!vocabs.hasOwnProperty(text)) {
-    vocabs[text] = 0;
-    localStorage.setItem("vocabs", JSON.stringify(vocabs));
-    console.log(vocabs);
-  }
-
-  const res = await fetch(DICT_API_URL + text);
-  if (res.ok) {
-    data = await res.json();
-    for (const word of data) {
-      const l = [];
-      for (const def of word["meanings"][0]["definitions"]) {
-        if (l.length > lim) break;
-        l.push(def["definition"]);
-      }
-      ret.push(l);
-    }
-  }
-
-  return ret;
-}
-
 function removeTags(input) {
   return input.replace(/<\/?[^>]+(>|$)/g, "");
 }
 
-async function getDefs1(word, lim = 3) {
+async function getDefinitions(word, lim = 3) {
   const ret = [];
 
   const res = await fetch(WIKI_API_URL + `/page/definition/${word}`);
@@ -661,8 +642,6 @@ function addClick(phrase) {
   if (vocabs.hasOwnProperty(phrase.innerText)) {
     vocabs[phrase.innerText] += 14;
     localStorage.setItem("vocabs", JSON.stringify(vocabs));
-    // console.log("exist");
-    // console.log(vocabs);
   }
   phrase.addEventListener("mouseout", (event) => {
     event.target.classList.remove("highlighted");
@@ -681,7 +660,7 @@ function addClick(phrase) {
       localStorage.setItem("vocabs", JSON.stringify(vocabs));
       console.log(vocabs);
     }
-    getDefs1(text).then(
+    getDefinitions(text).then(
       (data2D) => {
         console.log(data2D);
         defText.innerHTML = "";
@@ -795,18 +774,6 @@ function addChatbotReply(msg, dat) {
     window.speechSynthesis.speak(speech);
   }
 }
-
-// function updateSelectedModel(evt) {
-//   let target = evt.currentTarget;
-//   setSelectedModel(target.options[target.selectedIndex].value);
-// }
-
-// function setSelectedModel(id) {
-//   if (globalConfig.curModelId != id) {
-//     clearHistory();
-//     globalConfig.curModelId = id;
-//   }
-// }
 
 function advSuggestionId() {
   res = globalConfig.curSugId;
